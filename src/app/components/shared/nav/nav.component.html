@@ -1,0 +1,16 @@
+<mat-toolbar gap="1em" color="primary">
+    <a routerLink="/">Home</a> 
+    <div fxFlex fxLayout fxLayoutGap="1em" fxLayoutAlign="flex-end">
+        
+        <ng-template [ngIf]="isLogged" [ngIfElse]="anonymous">
+                <a routerLink="/user/profile">Profile</a>
+                <a routerLink="/quiz/all">View Quizes</a>
+                <button (click)="logout()">Logout</button>
+        </ng-template>       
+
+        <ng-template #anonymous>
+                <a routerLink="/login">Login</a> 
+                <a routerLink="/register">Register</a>
+        </ng-template>
+    </div>
+</mat-toolbar>

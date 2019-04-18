@@ -1,0 +1,32 @@
+<form 
+    (ngSubmit)="signup()" 
+    [formGroup]="signupForm"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="1em">
+  <mat-form-field>
+    <input formControlName="email" matInput type="email" placeholder="Your email...">
+    <mat-hint>Enter a valid email address.</mat-hint>
+    <mat-error *ngIf="signupForm.get('email').hasError('required')">Email is required.</mat-error>
+    <mat-error *ngIf="signupForm.get('email').hasError('email')">Email is invalid.</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+      <input formControlName="username" matInput type="username" placeholder="Your username...">
+      <mat-hint>Enter a valid email address.</mat-hint>
+      <mat-error *ngIf="signupForm.get('username').hasError('required')">Username is required.</mat-error>
+    </mat-form-field>
+  <mat-form-field>
+    <input formControlName="password" matInput type="password" placeholder="Your password...">
+    <mat-hint>Enter a valid password.</mat-hint>
+    <mat-error *ngIf="signupForm.get('password').hasError('required')">Password is required.</mat-error>
+    <mat-error *ngIf="signupForm.get('password').hasError('minlength')">Password must be at least 6 symbols.</mat-error>
+  </mat-form-field>  
+  <mat-form-field>
+      <input formControlName="repeatPassword" pattern="{{signupForm.controls.password.value}}" matInput type="password" placeholder="Repeat password...">
+      <mat-hint>Enter a valid password.</mat-hint>
+      <mat-error *ngIf="signupForm.get('repeatPassword').hasError('required')">Password is required.</mat-error>
+      <mat-error *ngIf="signupForm.get('repeatPassword').hasError('minlength')">Password must be at least 6 symbols.</mat-error>
+      <mat-error *ngIf="signupForm.get('repeatPassword').hasError('pattern')">Both passwords must match</mat-error>
+    </mat-form-field>  
+  <button [disabled]="signupForm.invalid" mat-raised-button type="submit" color="primary">Sign Up</button>
+</form>
