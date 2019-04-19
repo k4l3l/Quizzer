@@ -1,0 +1,15 @@
+<mat-card class="example-card">
+    <mat-card-header>      
+      <mat-card-title>{{quiz.name}}</mat-card-title>
+      <mat-card-subtitle>Created by: {{quiz.creator}} <br />on: {{quiz.createdOn | date}}</mat-card-subtitle>
+    </mat-card-header>    
+    <mat-card-content>
+      <p>
+        {{quiz.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Start quiz</button>
+      <button *ngIf="isAdmin"mat-raised-button color="warn">Delete quiz</button>
+    </mat-card-actions>
+</mat-card>

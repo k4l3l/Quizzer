@@ -1,0 +1,8 @@
+<h1>Choose by category:</h1>
+<a routerLink="/quiz/all/{{cat}}" mat-raised-button color="primary" *ngFor="let cat of categories">{{cat}}</a>
+<h1>Latest quizzes:</h1>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let quiz of latestQuzzes">
+      <app-quiz-info [quiz]="quiz" [isAdmin]="isAdmin"></app-quiz-info>
+    </mat-grid-tile>    
+</mat-grid-list>

@@ -4,12 +4,12 @@ const Quiz = require('../models/Quiz')
 
 const router = new express.Router()
 
+const catEnums = ['funny', 'music', 'movies', 'games', 'science', 'other'];
+
 function validateQuizCreateForm(payload) {
   const errors = {}
   let isFormValid = true
-  let message = ''
-
-  const catEnums = ['funny', 'music', 'movies', 'games', 'science', 'other'];
+  let message = ''  
 
   if (!payload || typeof payload.name !== 'string' || payload.name.length < 5) {
     isFormValid = false
@@ -32,11 +32,19 @@ function validateQuizCreateForm(payload) {
   }
 }
 
+router.get('/cats', authCheck, (req, res) => {  
+    return res.status(200).json({
+      success: true,
+      message: 'Categories fetched!',
+      cats: catEnums
+    });
+})
+
 router.post('/create', authCheck, (req, res) => {
   const QuizObj = req.body;
   if (req.user.roles.indexOf('Admin') > -1) {
     const validationResult = validateQuizCreateForm(QuizObj)
-    QuizObj.creator = req.user.id;
+    QuizObj.creator = req.user.username;
     if (!validationResult.success) {
       return res.status(200).json({
         success: false,
@@ -66,9 +74,9 @@ router.post('/create', authCheck, (req, res) => {
         })
       })
   } else {
-    return res.status(200).json({
+    return res.status(401).json({
       success: false,
-      message: 'Invalid credentials!'
+      message: 'You are not authorized to do that!'
     })
   }
 })
@@ -124,22 +132,25 @@ router.post('/edit/:id', authCheck, (req, res) => {
         })
       })
   } else {
-    return res.status(200).json({
+    return res.status(401).json({
       success: false,
-      message: 'Invalid credentials!'
+      message: 'You are not authorized to do that!'
     })
   }
 })
 
-router.get('/all', (req, res) => {
+
+router.get('/latest', authCheck, (req, res) => {
   Quiz
-    .find()
-    .then(Quizzes => {
-      res.status(200).json(Quizzes)
-    })
+  .find()
+  .sort({'createdOn': -1})
+  .limit(5)
+  .then(Quizzes => {
+    res.status(200).json(Quizzes)
+  })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', authCheck, (req, res) => {
   const id = req.params.id
   Quiz
     .findById(id)
@@ -161,19 +172,41 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router.post('/answers', (req, res) => {
+router.get('/all/:cat', authCheck, (req, res) => {
+  const category = req.params.cat;
+  if(catEnums.includes(category)){
+    Quiz
+    .find({category})
+    .then(Quizzes => {
+      res.status(200).json(Quizzes)
+    })
+  } else {
+    return res.status(404).json({
+      message: 'Entry not found!'
+    })
+  }  
+})
+
+router.post('/answers', authCheck, (req, res) => {
   const id = req.body.id;
-  Quiz
-    .findById(id)
-    .select('questions.answer')
-    .then(Quiz => {     
-      res.status(200).json(Quiz)
-    })
-    .catch(() => {
-      return res.status(404).json({
-        message: 'Entry not found!'
+  if (req.user.roles.indexOf('Admin') > -1) {
+    Quiz
+      .findById(id)
+      .select('questions.answer')
+      .then(Quiz => {     
+        res.status(200).json(Quiz)
       })
+      .catch(() => {
+        return res.status(404).json({
+          message: 'Entry not found!'
+        })
+      })
+  } else {
+    return res.status(401).json({
+      success: false,
+      message: 'You are not authorized to do that!'
     })
+  }
 })
 
 
@@ -199,9 +232,9 @@ router.delete('/delete/:id', authCheck, (req, res) => {
         })
       })
   } else {
-    return res.status(200).json({
+    return res.status(401).json({
       success: false,
-      message: 'Invalid credentials!'
+      message: 'You are not authorized to do that!'
     })
   }
 })

@@ -7,14 +7,13 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  name = localStorage.getItem('username');
+  name = '';
   isLogged = false;
   constructor(
     private authService: AuthService
     ) { }
 
   ngOnInit() {
-    this.authService.getName();
     this.authService.nameProvider.subscribe((name) => {
       this.name = name;
     });

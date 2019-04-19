@@ -1,0 +1,8 @@
+h1 {
+    color: gainsboro;
+    font-size: 4em;
+}
+
+h1#robo {
+    font-size: 6em;
+}

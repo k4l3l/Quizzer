@@ -8,7 +8,7 @@ let userSchema = new mongoose.Schema({
   username: {type: String, required: REQUIRED_VALIDATION_MESSAGE},
   salt: String,
   password: String,
-  roles: { type: mongoose.Schema.Types.Array }
+  roles: [{ type: mongoose.Schema.Types.String }]
 })
 
 userSchema.method({

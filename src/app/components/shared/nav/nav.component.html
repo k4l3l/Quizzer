@@ -1,16 +1,20 @@
 <mat-toolbar gap="1em" color="primary">
-    <a routerLink="/">Home</a> 
-    <div fxFlex fxLayout fxLayoutGap="1em" fxLayoutAlign="flex-end">
-        
-        <ng-template [ngIf]="isLogged" [ngIfElse]="anonymous">
-                <a routerLink="/user/profile">Profile</a>
-                <a routerLink="/quiz/all">View Quizes</a>
-                <button (click)="logout()">Logout</button>
-        </ng-template>       
-
-        <ng-template #anonymous>
-                <a routerLink="/login">Login</a> 
-                <a routerLink="/register">Register</a>
-        </ng-template>
-    </div>
+        <a routerLink="/">Home</a> 
+        <div fxFlex fxLayout fxLayoutGap="1em" fxLayoutAlign="flex-end">
+    
+            <ng-template [ngIf]="isAdmin">
+                    <a routerLink="/quiz/create">Create a quiz</a>
+            </ng-template>
+            
+            <ng-template [ngIf]="isLogged" [ngIfElse]="anonymous">
+                    <a routerLink="/user/profile">Profile</a>
+                    <a routerLink="/quiz/home">View Quizzes</a>
+                    <button (click)="logout()">Logout</button>
+            </ng-template>       
+    
+            <ng-template #anonymous>
+                    <a routerLink="/login">Login</a> 
+                    <a routerLink="/register">Register</a>
+            </ng-template>
+        </div>
 </mat-toolbar>

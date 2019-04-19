@@ -1,22 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder,
-    private router: Router,
-    private snackBar: MatSnackBar
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
@@ -30,5 +27,9 @@ export class RegisterComponent implements OnInit {
 
   signup() {
     this.authService.register(this.signupForm.value);
+  }
+
+  ngOnDestroy(){
+    this.authService.cancelSubscriptions();
   }
 }

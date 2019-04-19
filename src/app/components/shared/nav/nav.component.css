@@ -1,8 +1,15 @@
-a {
+a,button {
     text-decoration: none;
     color: #eeeeee;
 }
 
-a:hover {
+a:hover, button:hover {
     color: greenyellow;
+    cursor: pointer;
+}
+
+button {
+    background: none;
+    border: none;
+    font-size: 20px;
 }

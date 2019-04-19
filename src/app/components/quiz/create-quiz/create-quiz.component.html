@@ -1,0 +1,67 @@
+<form 
+    (ngSubmit)="createQuiz()" 
+    [formGroup]="quizForm"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="1em">
+  <mat-form-field>
+    <input formControlName="name" matInput type="text" placeholder="Name...">
+    <mat-hint>Enter a valid quiz title.</mat-hint>
+    <mat-error *ngIf="quizForm.get('name').hasError('required')">Name is required.</mat-error>
+    <mat-error *ngIf="quizForm.get('name').hasError('name')">Name is required.</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+      <mat-label>Select category</mat-label>
+        <mat-select formControlName="category">
+          <mat-option *ngFor="let cat of categories" [value]="cat">
+            {{cat}}
+          </mat-option>
+        </mat-select>      
+  </mat-form-field>
+  <mat-form-field>
+      <input formControlName="description" matInput type="text" placeholder="Description...">
+      <mat-hint>Minimum length is 10 symbols.</mat-hint>
+      <mat-error *ngIf="quizForm.get('description').hasError('required')">Description is required.</mat-error>
+      <mat-error *ngIf="quizForm.get('description').hasError('description')">Description is required.</mat-error>
+      <mat-error *ngIf="quizForm.get('description').hasError('minlength')">Minimum length is 10 symbols.</mat-error>
+  </mat-form-field>
+  <div formArrayName="questions"
+  *ngFor="let item of quizForm.get('questions').controls; let i = index;">
+  <div [formGroupName]="i"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="1em">
+    <p>Question {{i+1}}</p>
+    <mat-form-field>
+      <input formControlName="text" matInput placeholder="Question text">    
+      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('text').hasError('required')">Question is required.</mat-error>  
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="option1" matInput placeholder="First answer">
+      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option1').hasError('required')">Answer is required.</mat-error>  
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="option2" matInput placeholder="Second answer">
+      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option2').hasError('required')">Answer is required.</mat-error>  
+    </mat-form-field>
+    <mat-form-field>
+     <input formControlName="option3" matInput placeholder="Third answer">
+     <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option3').hasError('required')">Answer is required.</mat-error>  
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="option4" matInput placeholder="Fourth answer">
+      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option4').hasError('required')">Answer is required.</mat-error>  
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="answer" matInput type="number" min="0" max="3" placeholder="The correct answer">
+      <mat-hint>Provide a number from 0 to 3.</mat-hint>
+      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('answer').hasError('required')">Answer is required.</mat-error>  
+    </mat-form-field>
+  </div>
+
+</div>  
+  <button [disabled]="quizForm.invalid" mat-raised-button type="submit" color="primary">Create quiz</button>
+</form>
+<div fxLayoutAlign="end right">
+<button (click)="addQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add question</button>
+</div>

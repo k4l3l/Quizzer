@@ -23,7 +23,7 @@ module.exports = new PassportLocalStrategy({
 
       user.salt = encryption.generateSalt()
       user.password = encryption.generateHashedPassword(user.salt, user.password)
-      user.roles = []
+      user.roles = ['User']
 
       User
         .create(user)

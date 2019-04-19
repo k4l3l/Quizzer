@@ -19,7 +19,9 @@ let questionSchema = mongoose.Schema({
 let quizSchema = mongoose.Schema({
   name: {type: mongoose.Schema.Types.String, required: REQUIRED_VALIDATION_MESSAGE},
   category: {type: mongoose.Schema.Types.String, required: REQUIRED_VALIDATION_MESSAGE, enum: ['funny', 'music', 'movies', 'games', 'science', 'other']},
-  creator: {type: mongoose.Schema.Types.ObjectId},
+  creator: {type: mongoose.Schema.Types.String},
+  createdOn: {type: mongoose.Schema.Types.Date, default: Date.now()},
+  description: {type: mongoose.Schema.Types.String, required: REQUIRED_VALIDATION_MESSAGE},
   questions: [questionSchema],  
 })
 
