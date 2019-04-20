@@ -18,8 +18,9 @@ import { CreateQuizComponent } from './components/quiz/create-quiz/create-quiz.c
 import { ErrorInterceptor } from './core/interceptors/error-interceptor';
 import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { QuizHomeComponent } from './components/quiz/quiz-home/quiz-home.component';
-import { QuizCategoryComponent } from './components/quiz/quiz-category/quiz-category.component';
 import { QuizInfoComponent } from './components/quiz/quiz-info/quiz-info.component';
+import { QuizComponent } from './components/quiz/quiz/quiz.component';
+import { QuizResultComponent } from './components/quiz/quiz-result/quiz-result.component';
 
 
 @NgModule({
@@ -30,8 +31,9 @@ import { QuizInfoComponent } from './components/quiz/quiz-info/quiz-info.compone
     RegisterComponent,
     CreateQuizComponent,
     QuizHomeComponent,
-    QuizCategoryComponent,
     QuizInfoComponent,
+    QuizComponent,
+    QuizResultComponent,
   ],
   imports: [
     BrowserModule,

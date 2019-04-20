@@ -52,6 +52,12 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     this.questions.push(this.createQuestion());
   }
 
+  removeQuestion(): void {
+    if (this.questions) {
+      this.questions.removeAt(this.questions.length - 1);
+    }
+  }
+
   ngOnDestroy() {
     this.catsSub.unsubscribe();
     this.quizService.cancelSubscriptions();

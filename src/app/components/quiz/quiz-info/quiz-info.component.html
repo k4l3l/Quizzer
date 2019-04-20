@@ -1,7 +1,8 @@
-<mat-card class="example-card">
+<mat-card class="example-card" fxLayoutAlign="center center" fxLayout="column">
     <mat-card-header>      
       <mat-card-title>{{quiz.name}}</mat-card-title>
       <mat-card-subtitle>Created by: {{quiz.creator}} <br />on: {{quiz.createdOn | date}}</mat-card-subtitle>
+      <mat-card-subtitle>Category: {{quiz.category}}</mat-card-subtitle>
     </mat-card-header>    
     <mat-card-content>
       <p>
@@ -9,7 +10,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary">Start quiz</button>
-      <button *ngIf="isAdmin"mat-raised-button color="warn">Delete quiz</button>
+      <a routerLink="/quiz/{{quiz._id}}" mat-raised-button color="primary">Start quiz</a>
+      <button *ngIf="isAdmin"mat-raised-button (click)="deleteQuiz(quiz._id)" color="warn">Delete quiz</button>
     </mat-card-actions>
 </mat-card>

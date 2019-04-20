@@ -140,11 +140,10 @@ router.post('/edit/:id', authCheck, (req, res) => {
 })
 
 
-router.get('/latest', authCheck, (req, res) => {
+router.get('/all', authCheck, (req, res) => {
   Quiz
   .find()
   .sort({'createdOn': -1})
-  .limit(5)
   .then(Quizzes => {
     res.status(200).json(Quizzes)
   })
@@ -172,41 +171,22 @@ router.get('/:id', authCheck, (req, res) => {
     })
 })
 
-router.get('/all/:cat', authCheck, (req, res) => {
-  const category = req.params.cat;
-  if(catEnums.includes(category)){
-    Quiz
-    .find({category})
-    .then(Quizzes => {
-      res.status(200).json(Quizzes)
-    })
-  } else {
-    return res.status(404).json({
-      message: 'Entry not found!'
-    })
-  }  
-})
-
 router.post('/answers', authCheck, (req, res) => {
-  const id = req.body.id;
-  if (req.user.roles.indexOf('Admin') > -1) {
+  const id = req.body._id;
     Quiz
       .findById(id)
       .select('questions.answer')
-      .then(Quiz => {     
-        res.status(200).json(Quiz)
+      .then(Quiz => {
+        let qns = Quiz.questions.map((q) => {
+          return q.answer;
+        });
+        res.status(200).json(qns)
       })
       .catch(() => {
         return res.status(404).json({
           message: 'Entry not found!'
         })
       })
-  } else {
-    return res.status(401).json({
-      success: false,
-      message: 'You are not authorized to do that!'
-    })
-  }
 })
 
 

@@ -6,6 +6,8 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { CreateQuizComponent } from './components/quiz/create-quiz/create-quiz.component';
 import { QuizHomeComponent } from './components/quiz/quiz-home/quiz-home.component';
+import { QuizComponent } from './components/quiz/quiz/quiz.component';
+import { QuizResultComponent } from './components/quiz/quiz-result/quiz-result.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -14,6 +16,8 @@ const routes: Routes = [
   { path: 'quiz', children: [
     { path: 'create', component: CreateQuizComponent },
     { path: 'home', component: QuizHomeComponent },
+    { path: 'result', component: QuizResultComponent },
+    { path: ':id', component: QuizComponent },
   ]},
   { path: '**', component: NotFoundComponent },
 ];

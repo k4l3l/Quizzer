@@ -15,7 +15,7 @@ export class QuizHomeComponent implements OnInit, OnDestroy {
   categoriesSub: Subscription;
   isAdminSub: Subscription;
 
-  latestQuzzes: QuizInfo[];
+  quizzes: QuizInfo[];
   categories = [];
   isAdmin = false;
   constructor(
@@ -24,19 +24,24 @@ export class QuizHomeComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.quizService.fetchLatest();
     this.quizService.fetchCats();
     this.authService.initAuth();
+    this.quizService.fetchQuizzes();
 
     this.isAdminSub = this.authService.isAdminStatus.subscribe((bool) => {
       this.isAdmin = bool;
-    })
+    });
     this.categoriesSub = this.quizService.catsChanged.subscribe((data) => {
       this.categories = data;
-    })
-    this.latestSub = this.quizService.latestChanged.subscribe((data) => {
-      this.latestQuzzes = data;
     });
+    this.latestSub = this.quizService.quizzesChanged.subscribe((data) => {
+      this.quizzes = data;
+    });
+  }
+
+
+  deleteQuiz(id) {
+    this.quizService.deleteQuiz(id);
   }
 
   ngOnDestroy() {

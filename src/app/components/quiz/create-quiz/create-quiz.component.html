@@ -1,9 +1,16 @@
+<div class="addQuestion" fxLayoutAlign="end right">
+    <button (click)="addQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add question</button>
+</div>
+<div class="addQuestion" fxLayoutAlign="end right">
+    <button (click)="removeQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Remove question</button>
+</div>
 <form 
     (ngSubmit)="createQuiz()" 
     [formGroup]="quizForm"
-    fxLayout="column"
+    fxLayout="row wrap"
     fxLayoutAlign="center center"
     fxLayoutGap="1em">
+  <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1em">
   <mat-form-field>
     <input formControlName="name" matInput type="text" placeholder="Name...">
     <mat-hint>Enter a valid quiz title.</mat-hint>
@@ -25,6 +32,7 @@
       <mat-error *ngIf="quizForm.get('description').hasError('description')">Description is required.</mat-error>
       <mat-error *ngIf="quizForm.get('description').hasError('minlength')">Minimum length is 10 symbols.</mat-error>
   </mat-form-field>
+  </div>
   <div formArrayName="questions"
   *ngFor="let item of quizForm.get('questions').controls; let i = index;">
   <div [formGroupName]="i"
@@ -62,6 +70,3 @@
 </div>  
   <button [disabled]="quizForm.invalid" mat-raised-button type="submit" color="primary">Create quiz</button>
 </form>
-<div fxLayoutAlign="end right">
-<button (click)="addQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add question</button>
-</div>

@@ -1,7 +1,12 @@
-mat-grid-tile {
-    background: lightblue;
-  }
+div {
+  margin: 1em;
+}
 
 h1 {
   margin: 0.5em;
+}
+
+a:hover, button:hover {
+  color: greenyellow;
+  cursor: pointer;
 }

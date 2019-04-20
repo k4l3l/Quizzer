@@ -1,4 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter } from '@angular/core';
 import { QuizInfo } from '../../shared/models/quiz-info.model';
 
 @Component({
@@ -10,10 +15,16 @@ export class QuizInfoComponent implements OnInit {
 
   @Input() quiz: QuizInfo;
   @Input() isAdmin: boolean;
+  @Output() deleteQuizEmitter =  new EventEmitter<string>();
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit() {
+  }
+
+  deleteQuiz(id) {
+    this.deleteQuizEmitter.emit(id);
   }
 
 }
