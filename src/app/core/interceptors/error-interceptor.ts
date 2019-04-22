@@ -24,8 +24,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(req)
             .pipe(
                 catchError((err:HttpErrorResponse) => {
-                    if (err.status === 401) {
-                        this.snackbar.open(err.message, 'Close', {
+                    if (err) {
+                        this.snackbar.open(err.error.message, 'Close', {
                             duration: 5000
                         });
                         this.router.navigate(['/']);

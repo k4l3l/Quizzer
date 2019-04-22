@@ -14,7 +14,7 @@ export class QuizResultComponent implements OnInit, OnDestroy {
   constructor(private quizService: QuizService, private router: Router) { }
 
   ngOnInit() {
-    if (parseInt(localStorage.getItem('qnProgress')) > 0 && localStorage.getItem('quiz')) {
+    if (parseInt(localStorage.getItem('qnProgress')) == 10 && localStorage.getItem('quiz')) {
       this.quizService.seconds = parseInt(localStorage.getItem('seconds'));
       this.quizService.qnProgress = parseInt(localStorage.getItem('qnProgress'));
       this.quizService.updatedQs = JSON.parse(localStorage.getItem('qns'));
@@ -22,12 +22,21 @@ export class QuizResultComponent implements OnInit, OnDestroy {
       this.answerSub = this.quizService.getAnswers().subscribe(
         (data: any) => {
           this.quizService.correctAnswerCount = 0;
+          let qns = data['questions'];
+          let questionsArr = [];
+          this.quizService.updatedQs.forEach((q) => {
+            questionsArr.push(q._id);
+          });
+          qns = qns.filter((q) => {
+            return questionsArr.includes(q._id);
+          });
           this.quizService.updatedQs.forEach((e, i) => {
             if (e.answer == data[i]) {
               this.quizService.correctAnswerCount++;
             }
             e.correct = data[i];
           });
+          console.log(this.quizService.updatedQs);
         }
       );
     } else {

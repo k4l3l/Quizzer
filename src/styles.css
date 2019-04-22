@@ -5,9 +5,7 @@
 
 html, body {
     font-family: 'Lato', sans-serif;
+    margin: 0;
+    height: 95%;
 }
 
-body {
-    margin: 0;
-    height: 100%;
-}

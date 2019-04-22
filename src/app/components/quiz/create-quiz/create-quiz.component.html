@@ -2,7 +2,7 @@
     <button (click)="addQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add question</button>
 </div>
 <div class="addQuestion" fxLayoutAlign="end right">
-    <button (click)="removeQuestion()" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Remove question</button>
+    <button (click)="removeQuestion()" mat-raised-button color="warn"><mat-icon>remove_circle</mat-icon> Remove question</button>
 </div>
 <form 
     (ngSubmit)="createQuiz()" 
@@ -16,6 +16,7 @@
     <mat-hint>Enter a valid quiz title.</mat-hint>
     <mat-error *ngIf="quizForm.get('name').hasError('required')">Name is required.</mat-error>
     <mat-error *ngIf="quizForm.get('name').hasError('name')">Name is required.</mat-error>
+    <mat-error *ngIf="quizForm.get('name').hasError('minlength')">Minimum length is 5 symbols.</mat-error>
   </mat-form-field>
   <mat-form-field>
       <mat-label>Select category</mat-label>
@@ -33,7 +34,7 @@
       <mat-error *ngIf="quizForm.get('description').hasError('minlength')">Minimum length is 10 symbols.</mat-error>
   </mat-form-field>
   </div>
-  <div formArrayName="questions"
+<div formArrayName="questions"
   *ngFor="let item of quizForm.get('questions').controls; let i = index;">
   <div [formGroupName]="i"
     fxLayout="column"
@@ -65,8 +66,8 @@
       <mat-hint>Provide a number from 0 to 3.</mat-hint>
       <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('answer').hasError('required')">Answer is required.</mat-error>  
     </mat-form-field>
-  </div>
-
-</div>  
+  </div>  
+</div>
+<mat-error *ngIf="this.quizForm.get('questions').hasError('minlength')">Minimum questions is 10.</mat-error>  
   <button [disabled]="quizForm.invalid" mat-raised-button type="submit" color="primary">Create quiz</button>
 </form>

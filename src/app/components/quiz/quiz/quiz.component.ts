@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 })
 export class QuizComponent implements OnInit, OnDestroy {
   quizSub: Subscription;
+  randoms = [];
 
   constructor(
     private router: Router,
@@ -24,7 +25,11 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.quizSub = this.quizService.fetchById(id).subscribe((data) => {
       this.quizService.quiz = data['Quiz'];
       this.quizService.updatedQs = data['updatedQs'];
-      this.quizService.progressRatio = (100 / this.quizService.updatedQs.length);
+      let randomNums = Array.from({length: 10}, () => Math.floor(Math.random() * this.quizService.updatedQs.length));
+      randomNums.forEach((n) => {
+        this.randoms.push(this.quizService.updatedQs[n]);
+      });
+      console.log(this.randoms);
       this.start();
     });
   }

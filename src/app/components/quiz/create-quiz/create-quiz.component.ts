@@ -23,12 +23,12 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     this.quizService.fetchCats();
     this.catsSub = this.quizService.catsChanged.subscribe((cats) => {
       this.categories = cats;
-    })
+    });
     this.quizForm = this.fb.group({
-     name: ['', [ Validators.required ]],
+     name: ['', [ Validators.required, Validators.minLength(5) ]],
      category: ['', [ Validators.required ]],
      description: ['', [ Validators.required, Validators.minLength(10) ]],
-     questions: this.fb.array([this.createQuestion()])
+     questions: this.fb.array([this.createQuestion()], Validators.minLength(10))
     });
   }
 

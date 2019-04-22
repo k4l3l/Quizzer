@@ -99,6 +99,7 @@ router.post('/edit/:id', authCheck, (req, res) => {
       .then(existingQuiz => {
         existingQuiz.name = QuizObj.name
         existingQuiz.category = QuizObj.category
+        existingQuiz.description = QuizObj.description
         existingQuiz.questions = QuizObj.questions
 
 
@@ -175,12 +176,9 @@ router.post('/answers', authCheck, (req, res) => {
   const id = req.body._id;
     Quiz
       .findById(id)
-      .select('questions.answer')
-      .then(Quiz => {
-        let qns = Quiz.questions.map((q) => {
-          return q.answer;
-        });
-        res.status(200).json(qns)
+      .select('questions._id questions.answer')
+      .then(Quiz => {        
+        res.status(200).json(Quiz)
       })
       .catch(() => {
         return res.status(404).json({

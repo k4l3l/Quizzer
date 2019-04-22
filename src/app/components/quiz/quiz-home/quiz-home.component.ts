@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges, DoCheck } from '@angular/core';
 import { QuizService } from 'src/app/core/services/quiz.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -39,6 +39,13 @@ export class QuizHomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  onFilterQuizzes(category) {
+    this.quizService.filterQuizzes(category);
+  }
+
+  onResetFilter() {
+    this.quizService.resetFilter();
+  }
 
   deleteQuiz(id) {
     this.quizService.deleteQuiz(id);

@@ -14,9 +14,9 @@ const QUIZ_URL = 'http://localhost:5000/quiz/';
 export class QuizService {
   _eventSubscriptions: Subscription[] = [];
   private quizzes: QuizInfo[] = [];
+  private filtered: QuizInfo[] = [];
   quiz: Quiz;
   updatedQs: any;
-  progressRatio;
   correctAnswerCount: number;
   seconds: number;
   timer;
@@ -54,6 +54,17 @@ export class QuizService {
     }));
   }
 
+  editQuiz(quizId, body) {
+    this._eventSubscriptions.push(this.http.post(QUIZ_URL + 'edit/' + quizId, body).subscribe((data) => {
+      if (data['success'] === true) {
+        this.snackBar.open('Quiz successfully edited!', 'Close', {
+          duration: 5000,
+        });
+        this.fetchQuizzes();
+      }
+    }));
+  }
+
   deleteQuiz(quizId) {
     this._eventSubscriptions.push(this.http.delete(QUIZ_URL + 'delete/' + quizId).subscribe((data) => {
       if (data['success'] === true) {
@@ -63,6 +74,15 @@ export class QuizService {
         this.fetchQuizzes();
       }
     }));
+  }
+
+  filterQuizzes(category) {
+    this.filtered = this.quizzes.filter(q => q.category === category);
+    this.quizzesChanged.next([...this.filtered]);
+  }
+
+  resetFilter() {
+    this.quizzesChanged.next([...this.quizzes]);
   }
 
   fetchQuizzes() {
