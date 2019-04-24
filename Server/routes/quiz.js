@@ -1,6 +1,7 @@
 const express = require('express')
 const authCheck = require('../config/auth-check')
 const Quiz = require('../models/Quiz')
+const User = require('../models/User')
 
 const router = new express.Router()
 
@@ -151,7 +152,7 @@ router.get('/all', authCheck, (req, res) => {
 })
 
 router.get('/:id', authCheck, (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   Quiz
     .findById(id)
     .then(Quiz => {
@@ -215,6 +216,36 @@ router.delete('/delete/:id', authCheck, (req, res) => {
       message: 'You are not authorized to do that!'
     })
   }
+})
+
+router.post('/result', authCheck, (req, res) => {
+  const userId = req.user.id;
+  const result = req.body;
+  User
+  .findById(userId)
+  .then((user) => {
+    user.results = [...user.results, result]
+    user.save()
+    .then(editedUser =>{
+      res.status(200).json({
+        success: true,
+        message: 'Result successfully submitted.',
+        data: editedUser.results
+      })
+    })
+    .catch(err => res.status(401).json({
+      success: false,
+      message: 'Some error occured: ' + err.message
+    }))
+  })
+  .catch((err) => {
+    console.log(err)
+    const message = 'Something went wrong :('
+    return res.status(200).json({
+      success: false,
+      message: message
+    })
+  })
 })
 
 

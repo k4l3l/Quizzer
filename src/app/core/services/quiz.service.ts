@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { QuizInfo } from '../../components/shared/models/quiz-info.model';
 import { Quiz } from 'src/app/components/shared/models/quiz.model';
+import { Question } from 'src/app/components/shared/models/question.model';
 
 const QUIZ_URL = 'http://localhost:5000/quiz/';
 
@@ -16,16 +17,17 @@ export class QuizService {
   private quizzes: QuizInfo[] = [];
   private filtered: QuizInfo[] = [];
   quiz: Quiz;
-  updatedQs: any;
+  updatedQs: Question[];
+  // quizChanged = new BehaviorSubject<Quiz>(this.quiz);
+  // updatedQsChanged = new BehaviorSubject<Array<any>>(this.updatedQs);
   correctAnswerCount: number;
   seconds: number;
   timer;
   qnProgress: number;
   quizzesChanged = new BehaviorSubject<QuizInfo[]>([]);
-
-
   private _quizCats = [];
-  catsChanged = new BehaviorSubject<Array<string>>([]);
+  catsChanged = new BehaviorSubject<Array<string>>(this._quizCats);
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -60,7 +62,7 @@ export class QuizService {
         this.snackBar.open('Quiz successfully edited!', 'Close', {
           duration: 5000,
         });
-        this.fetchQuizzes();
+        this.router.navigate(['/quiz/home']);
       }
     }));
   }
@@ -94,11 +96,21 @@ export class QuizService {
 
   fetchById(id) {
     return this.http.get(QUIZ_URL + id);
+    // .subscribe((data: Quiz) => {
+    //   this.quiz = data['Quiz'];
+    //   this.updatedQs = data['updatedQs']
+    //   this.quizChanged.next({...this.quiz});
+    //   this.updatedQsChanged.next([...this.updatedQs]);
+    // });
   }
 
-  getAnswers() {
+  getAnswers(_id?) {
     let body = { _id: localStorage.getItem('quiz') };
-    return this.http.post(QUIZ_URL + 'answers', body);
+    return this.http.post(QUIZ_URL + 'answers', _id? {_id} : body);
+  }
+
+  submitScore(data) {
+    return this.http.post(QUIZ_URL + 'result', data);
   }
 
   cancelSubscriptions() {

@@ -1,5 +1,5 @@
 <h1>Choose a quiz:</h1>
-<h2>Categories:</h2>
+<h2>Categories filter:</h2>
 <div fxLayoutGap="0.5em">
 <button *ngFor="let cat of categories" (click)="onFilterQuizzes(cat)" mat-raised-button color="primary">{{cat}}</button>
 <button (click)="onResetFilter()" mat-raised-button color="primary"><mat-icon>restore</mat-icon> reset</button>
@@ -9,5 +9,5 @@
 *ngFor="let quiz of quizzes" 
 [quiz]="quiz" 
 [isAdmin]="isAdmin"
-(deleteQuizEmitter)="deleteQuiz($event)"></app-quiz-info>
+(openDialogEmitter)="openDialog($event)"></app-quiz-info>
 </div>

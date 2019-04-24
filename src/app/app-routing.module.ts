@@ -4,26 +4,19 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
-import { CreateQuizComponent } from './components/quiz/create-quiz/create-quiz.component';
-import { QuizHomeComponent } from './components/quiz/quiz-home/quiz-home.component';
-import { QuizComponent } from './components/quiz/quiz/quiz.component';
-import { QuizResultComponent } from './components/quiz/quiz-result/quiz-result.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'quiz', children: [
-    { path: 'create', component: CreateQuizComponent },
-    { path: 'home', component: QuizHomeComponent },
-    { path: 'result', component: QuizResultComponent },
-    { path: ':id', component: QuizComponent },
-  ]},
+  { path: 'quiz', loadChildren: './components/quiz/quiz.module#QuizModule', canLoad: [ AuthGuard ] },
   { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [ ]
 })
 export class AppRoutingModule { }

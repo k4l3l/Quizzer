@@ -4,7 +4,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Basic info
 
-This is a simple app for quiz/test challenges. The user can select from a number of quizzes, created by the admin.
+This is a simple app for quiz/test challenges, built with Angular, Express MongoDB and Angular Material.
+
+## Features
+CRUD on Quizzes
+Engaging quiz questions
+Saving results in the db
 
 ## Code scaffolding
 

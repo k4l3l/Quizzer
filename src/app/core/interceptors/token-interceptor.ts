@@ -1,13 +1,9 @@
 import {
-    HttpResponse,
     HttpRequest,
     HttpHandler,
-    HttpEvent,
     HttpInterceptor,
-    HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {

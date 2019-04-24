@@ -5,7 +5,7 @@
     <button (click)="removeQuestion()" mat-raised-button color="warn"><mat-icon>remove_circle</mat-icon> Remove question</button>
 </div>
 <form 
-    (ngSubmit)="createQuiz()" 
+    (ngSubmit)="editQuiz()" 
     [formGroup]="quizForm"
     fxLayout="row wrap"
     fxLayoutAlign="center center"
@@ -20,7 +20,7 @@
   </mat-form-field>
   <mat-form-field>
       <mat-label>Select category</mat-label>
-        <mat-select formControlName="category">
+        <mat-select [value]="quiz.category" formControlName="category">
           <mat-option *ngFor="let cat of categories" [value]="cat">
             {{cat}}
           </mat-option>
@@ -58,7 +58,7 @@
      <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option3').hasError('required')">Answer is required.</mat-error>  
     </mat-form-field>
     <mat-form-field>
-      <input formControlName="option4" matInput placeholder="Fourth answer (3)">
+      <input formControlName="option4" matInput placeholder="Fourth answer(3)">
       <mat-error *ngIf="this.quizForm.get('questions').controls[i].get('option4').hasError('required')">Answer is required.</mat-error>  
     </mat-form-field>
     <mat-form-field>
@@ -69,5 +69,5 @@
   </div>  
 </div>
 <mat-error *ngIf="this.quizForm.get('questions').hasError('minlength')">Minimum questions is 10.</mat-error>  
-  <button [disabled]="quizForm.invalid" mat-raised-button type="submit" color="primary">Create quiz</button>
+  <button [disabled]="quizForm.invalid" mat-raised-button type="submit" color="primary">Edit quiz</button>
 </form>

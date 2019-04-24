@@ -1,9 +1,18 @@
 .example-card {
     max-width: 400px;
+    background: none;
     margin-top: 1em;
   }
 
   a:hover, button:hover {
     color: greenyellow;
     cursor: pointer;
+}
+
+.editBtn {
+  background-color: orange;
+}
+
+button {
+  margin-left: 0px !important;
 }

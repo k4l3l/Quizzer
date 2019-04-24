@@ -15,7 +15,7 @@ export class QuizInfoComponent implements OnInit {
 
   @Input() quiz: QuizInfo;
   @Input() isAdmin: boolean;
-  @Output() deleteQuizEmitter =  new EventEmitter<string>();
+  @Output() openDialogEmitter =  new EventEmitter<Object>();
 
   constructor(
   ) { }
@@ -23,8 +23,8 @@ export class QuizInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteQuiz(id) {
-    this.deleteQuizEmitter.emit(id);
+  openDialog() {
+    this.openDialogEmitter.emit({id: this.quiz._id, name: this.quiz.name});
   }
 
 }

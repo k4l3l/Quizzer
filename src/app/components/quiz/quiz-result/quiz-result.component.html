@@ -1,3 +1,44 @@
-<p>
-  quiz-result works!
-</p>
+
+      <mat-card class="header" fxLayout="column" fxLayoutAlign="center center">
+          <h2>Completed!</h2>
+        <mat-card-header>
+          <img mat-card-avatar src="../../../../assets/img/164664640-question-mark-wallpapers50.jpg" />
+          <mat-card-title>{{this.username}}</mat-card-title>
+          <mat-card-title>{{quizService.correctAnswerCount}}/10</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <span>Time Elapsed : {{quizService.displayTimeElapsed()}}</span>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="onSubmit()">Submit</button>
+          <button mat-button (click)="restart()">
+            <mat-icon>replay</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+
+      
+      <!-- Qn with correct answer -->
+      <h3>Questions with correct answer</h3>
+      <ng-container *ngFor="let qn of quizService.updatedQs;let i=index">
+          <mat-card>
+              <mat-card-header>
+                  <mat-card-title>{{i+1}}</mat-card-title>
+                  <mat-card-title>{{qn.text}}</mat-card-title>                 
+              </mat-card-header>
+  
+              <mat-card-actions>
+                  <ul class="collection">
+                      <ng-container *ngFor="let option of qn.options;let j = index">
+                          <li *ngIf="option != null" class="collection-item">
+                              {{option}}                              
+                              <span class="badge" *ngIf="qn.correct==j">
+                                  <mat-icon>check_circle</mat-icon>
+                              </span>
+                              <span class="badge red-text" *ngIf="qn.answer==j && qn.correct!=j">Incorrect</span>
+                          </li>
+                      </ng-container>
+                  </ul>
+              </mat-card-actions>
+          </mat-card>
+      </ng-container>

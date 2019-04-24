@@ -11,6 +11,7 @@
     </mat-card-content>
     <mat-card-actions>
       <a routerLink="/quiz/{{quiz._id}}" mat-raised-button color="primary">Start quiz</a>
-      <button *ngIf="isAdmin"mat-raised-button (click)="deleteQuiz(quiz._id)" color="warn">Delete quiz</button>
+      <a *ngIf="isAdmin" routerLink="/quiz/edit/{{quiz._id}}" class="editBtn" mat-raised-button>Edit quiz</a>
+      <button *ngIf="isAdmin" mat-raised-button (click)="openDialog()" color="warn">Delete quiz</button>
     </mat-card-actions>
 </mat-card>

@@ -1,20 +1,21 @@
-<div class="row" *ngIf="quizService.updatedQs">
-  <mat-card class="example-card">
-    <span>Time Elapsed: {{quizService.displayTimeElapsed()}}</span>
-    <mat-progress-bar mode="determinate" [value]="(quizService.qnProgress+1)*10"></mat-progress-bar>
-      <mat-card-header>
-          <mat-card-title>{{quizService.qnProgress+1}}</mat-card-title>
-          <mat-card-title>{{quizService.quiz.description}}</mat-card-title>            
-          <mat-card-title>{{randoms[quizService.qnProgress]?.text}}</mat-card-title>            
-      </mat-card-header>
-      <mat-card-content>
-        </mat-card-content>
-        <mat-card-actions>
-          <ng-container *ngFor="let option of randoms[quizService.qnProgress]?.options; let i = index">
-            <button mat-button *ngIf="option != null" (click)="answer(randoms[quizService.qnProgress]._id,i)">
-              {{option}}
-            </button>
-          </ng-container>
-        </mat-card-actions>
-  </mat-card>
-</div>
+<ng-container *ngIf="quizService.updatedQs">
+    <mat-card class="example-card">
+      <p>Time Elapsed: {{quizService.displayTimeElapsed()}}</p>
+      <mat-progress-bar mode="determinate" [value]="(quizService.qnProgress+1)*10"></mat-progress-bar>
+        <mat-card-header>
+            <mat-card-title>{{quizService.qnProgress+1}}</mat-card-title>
+            <mat-card-title>{{quizService.quiz.description}}</mat-card-title>            
+            <mat-card-title>{{randoms[quizService.qnProgress]?.text}}</mat-card-title>            
+        </mat-card-header>
+        <mat-card-content>
+          </mat-card-content>
+          <mat-card-actions>
+            <ng-container *ngFor="let option of randoms[quizService.qnProgress]?.options; let i = index">
+              <button mat-button *ngIf="option != null" (click)="answer(randoms[quizService.qnProgress]._id,i)">
+                {{option}}
+              </button>
+            </ng-container>
+          </mat-card-actions>
+    </mat-card>
+</ng-container>
+  

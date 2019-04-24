@@ -1,0 +1,7 @@
+<div mat-dialog-content>
+  <p>Are you sure you want to delete {{data.name}}</p>  
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="primary">No</button>
+  <button mat-raised-button (click)="onButtonClick(data._id)" cdkFocusInitial color="warn">Yes</button>
+</div>

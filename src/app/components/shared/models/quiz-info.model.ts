@@ -5,4 +5,5 @@ export interface QuizInfo {
     creator: string;
     createdOn: Date;
     description: string;
+    hot: boolean;
 }
