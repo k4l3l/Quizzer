@@ -16,7 +16,7 @@ let userSchema = new mongoose.Schema({
   salt: String,
   results: [resultSchema],
   password: String,
-  roles: [{ type: mongoose.Schema.Types.String }]
+  roles: [{ type: mongoose.Schema.Types.String}]
 })
 
 userSchema.method({

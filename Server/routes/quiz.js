@@ -151,6 +151,16 @@ router.get('/all', authCheck, (req, res) => {
   })
 })
 
+
+// router.get('/results', authCheck, (req, res) => {
+//   const userId = req.user.id;
+//   User
+//   .findById(userId)
+//   .then((user) => {
+//     res.status(200).json(user);
+//   })
+// })
+
 router.get('/:id', authCheck, (req, res) => {
   const id = req.params.id;
   Quiz
@@ -247,6 +257,5 @@ router.post('/result', authCheck, (req, res) => {
     })
   })
 })
-
 
 module.exports = router

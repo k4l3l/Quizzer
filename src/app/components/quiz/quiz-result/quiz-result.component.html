@@ -31,11 +31,10 @@
                   <ul class="collection">
                       <ng-container *ngFor="let option of qn.options;let j = index">
                           <li *ngIf="option != null" class="collection-item">
-                              {{option}}                              
+                              <span class="{{qn.answer==j && qn.correct!=j? 'red-text' : qn.answer==j? 'badge' : 'answer' }}">{{option}}</span>
                               <span class="badge" *ngIf="qn.correct==j">
                                   <mat-icon>check_circle</mat-icon>
                               </span>
-                              <span class="badge red-text" *ngIf="qn.answer==j && qn.correct!=j">Incorrect</span>
                           </li>
                       </ng-container>
                   </ul>

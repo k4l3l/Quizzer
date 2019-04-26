@@ -5,11 +5,13 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ProfileComponent } from './components/user/profile/profile.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'user/profile', component: ProfileComponent },
   { path: 'quiz', loadChildren: './components/quiz/quiz.module#QuizModule', canLoad: [ AuthGuard ] },
   { path: '**', component: NotFoundComponent },
 ];
