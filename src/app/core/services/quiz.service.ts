@@ -48,7 +48,7 @@ export class QuizService {
   }
 
   createQuiz(quizData) {
-    this._eventSubscriptions.push(this.http.post(QUIZ_URL + 'create', quizData).subscribe((data) => {
+    this._eventSubscriptions.push(this.http.post(QUIZ_URL, quizData).subscribe((data) => {
       this.snackBar.open(data['message'], 'Close', {
         duration: 5000
       });
@@ -57,7 +57,7 @@ export class QuizService {
   }
 
   editQuiz(quizId, body) {
-    this._eventSubscriptions.push(this.http.post(QUIZ_URL + 'edit/' + quizId, body).subscribe((data) => {
+    this._eventSubscriptions.push(this.http.post(QUIZ_URL + quizId, body).subscribe((data) => {
       if (data['success'] === true) {
         this.snackBar.open('Quiz successfully edited!', 'Close', {
           duration: 5000,
@@ -68,7 +68,7 @@ export class QuizService {
   }
 
   deleteQuiz(quizId) {
-    this._eventSubscriptions.push(this.http.delete(QUIZ_URL + 'delete/' + quizId).subscribe((data) => {
+    this._eventSubscriptions.push(this.http.delete(QUIZ_URL + quizId).subscribe((data) => {
       if (data['success'] === true) {
         this.snackBar.open('Quiz successfully deleted!', 'Close', {
           duration: 5000,

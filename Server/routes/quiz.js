@@ -41,7 +41,7 @@ router.get('/cats', authCheck, (req, res) => {
     });
 })
 
-router.post('/create', authCheck, (req, res) => {
+router.post('/', authCheck, (req, res) => {
   const QuizObj = req.body;
   if (req.user.roles.indexOf('Admin') > -1) {
     const validationResult = validateQuizCreateForm(QuizObj)
@@ -82,7 +82,7 @@ router.post('/create', authCheck, (req, res) => {
   }
 })
 
-router.post('/edit/:id', authCheck, (req, res) => {
+router.post('/:id', authCheck, (req, res) => {
   if (req.user.roles.indexOf('Admin') > -1) {
     const QuizId = req.params.id
     const QuizObj = req.body
@@ -142,7 +142,7 @@ router.post('/edit/:id', authCheck, (req, res) => {
 })
 
 
-router.get('/all', authCheck, (req, res) => {
+router.get('/', authCheck, (req, res) => {
   Quiz
   .find()
   .sort({'createdOn': -1})
@@ -199,7 +199,7 @@ router.post('/answers', authCheck, (req, res) => {
 })
 
 
-router.delete('/delete/:id', authCheck, (req, res) => {
+router.delete('/:id', authCheck, (req, res) => {
   const id = req.params.id
   if (req.user.roles.indexOf('Admin') > -1) {
     Quiz
